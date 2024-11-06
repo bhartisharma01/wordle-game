@@ -9,10 +9,10 @@ const Wordle = () => {
   const inputRef = useRef(null);
   let [count, setCount] = useState(0);
   const [userGuessCount, setUserGuessCount] = useState(6);
-  const [word, setWord] = useState("");
+  // const [word, setWord] = useState("");
   const [currentRow, setCurrentRow] = useState(0);
   const [win, setWin] = useState(false);
-  const [hint, setHint]= useState('');
+  const [hint, setHint]= useState(localStorage.getItem('wordHint'));
   useEffect(() => {
     const fetchWord = async () => {
       try {
@@ -23,6 +23,8 @@ const Wordle = () => {
         
         const data = await res.json();
         const dataLen = Math.floor(Math.random() * data.length);
+        console.log("dataLen", dataLen);
+        
         console.log("random word", data[dataLen]);
         const randomWord = data[dataLen];
         // setWord(randomWord);
@@ -72,6 +74,8 @@ const Wordle = () => {
   };
 
   const handleEnter = () => {
+    console.log("checking va;ue of count inside handleEnter", count);
+    
     if (count == 5) {
 
         console.log("checking newMatrix inside count", matrix[currentRow]);
@@ -117,7 +121,7 @@ let arr=[];
   return (
     <>
       <div className="container text-center d-flex justify-content-center align-items-center vh-100">
-          <div className="word-hint">
+          <div className="word-hint mb-3">
             <p className="m-0"><strong>Word Hint: </strong> {hint}</p>
           </div>
         <div>
