@@ -9,7 +9,6 @@ const Wordle = () => {
   const inputRef = useRef(null);
   let [count, setCount] = useState(0);
   const [userGuessCount, setUserGuessCount] = useState(6);
-  // const [word, setWord] = useState("");
   const [currentRow, setCurrentRow] = useState(0);
   const [win, setWin] = useState(false);
   const [hint, setHint]= useState(localStorage.getItem('wordHint'));
@@ -87,6 +86,18 @@ const Wordle = () => {
 
     }
   };
+
+  const handleUserEnter=()=>{
+    if(count<5){
+      matchWord(guessWord, currentRow);
+    }else if(count==5){
+      matchWord(currentRow, guessWord)
+    }else{
+      setCurrentRow(currentRow + 1);
+    }
+
+    setUserGuessCount(userGuessCount -1)
+  }
 
 let arr=[];
 
